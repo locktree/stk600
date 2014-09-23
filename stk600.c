@@ -19,22 +19,13 @@
 
 
 
-
-
 int main(void)
 {
-	const int DELAY = 1000;
-	int iterator = 0;
 	
-	for (iterator = 0 ; iterator < 5 ; iterator++)
-	{
-		
-		turnAllIoOn();
-		_delay_ms(DELAY);
-		turnAllIoOff();
-		_delay_ms(DELAY);
-	}
 	
+	ledDemo();
+	
+
 	return 0;
 }
 

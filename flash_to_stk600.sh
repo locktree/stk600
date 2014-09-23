@@ -8,3 +8,5 @@ make all
 
 echo "flashing.............."
 sudo avrdude -p atmega2560 -c stk600 -P usb -U flash:w:$PWD/stk600.hex
+
+echo "RUNNING......." 
