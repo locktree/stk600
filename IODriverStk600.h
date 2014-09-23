@@ -48,7 +48,7 @@ void turnAllIoOff();
 void turnSpecifiedIoOff(PORTNUMBER pn);
 void turnSpecifiedIoOn(PORTNUMBER pn);
 void toggleSpecifiedIO(PORTNUMBER pn);
-
+void ledDemo();
 
 
 
@@ -232,6 +232,9 @@ void testSpecifiedButton(int ButtonNumber )
 		}
 	}
 }
+
+
+
 
 #endif
 
