@@ -1,3 +1,8 @@
+#ifndef STK_IO_DRIVER_H
+#define STK_IO_DRIVER_H
+
+
+
 
 /*USING THE _BV MACRO  -> Bit Value  */
 #define sbi(x,y) x |= _BV(y) 					//set bit - using bitwise OR operator
@@ -135,10 +140,12 @@ void ledDemo()
 
 	 
 	 /*******************************
-	  * DEMO 6 - BINARY COUNT *
+	  * DEMO 7 - BINARY COUNT *
 	  ******************************/
 
 	 binary_count();
+	 
+	 testSpecifiedButton(0x08);		//when pressing the 4th(SW3) button...
 }
 
 
@@ -201,10 +208,30 @@ void binary_count()
 		_delay_ms(50);
 		if(a == 0xFF)
 		{
+			break;
 			a = 0;
 		}
 		a = a + 1;
 	}
 	_delay_ms(250);
 }
+
+
+
+
+/* 	WILL RESPONSE ON A SPECIFIED BUTTON */
+void testSpecifiedButton(int ButtonNumber )
+{
+	unsigned char pressedButton = 0;
+	for(;;)
+	{  
+		pressedButton = ~PIND;
+		if (pressedButton == ButtonNumber)  
+		{
+			binary_count();
+		}
+	}
+}
+
+#endif
 

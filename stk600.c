@@ -9,6 +9,7 @@
 #include "IODriverStk600.h"
 
 
+
 /* STK600 CONFIGURATION:
  * -PORT B -> SWITCHES
  * -PORT D -> LEDS
