@@ -1,18 +1,18 @@
-#ifndef STK_IO_DRIVER_H
-#define STK_IO_DRIVER_H
+/*
+* Wiring: FOR STK600
+* PE0 -> RXD
+* PE1 -> TXD
+*/
 
 
+#ifndef STK_UART_DRIVER_H
+#define STK_UART_DRIVER_H
 
 
 #define MAXLINE 81
 #define CLOCK_8MHZ() CLKPR = _BV(CLKPCE); CLKPR = 0x00;
+#define UART_BUFFER_SIZE 100 // size of Rx ring buffer.
 
-
-/*
-* Wiring:
-* PE0 -> RXD
-* PE1 -> TXD
-*/
 
 typedef enum _uart_bps
 {
@@ -21,7 +21,7 @@ typedef enum _uart_bps
         UART_DEFAULT,
 } UART_BPS;
 
-#define UART_BUFFER_SIZE 100 // size of Rx ring buffer.
+
 
 extern volatile uint8_t uart_rx; // Flag to indicate uart received a byte
 
@@ -33,11 +33,6 @@ void uart_putstr(char *s);
 uint8_t uart_bytes_recv(void);
 void uart_reset_recv(void);
 
-
-
-
-
-
 /*
 Global Variables:
 Variables appearing in both ISR/Main are defined as 'volatile'.
@@ -46,6 +41,16 @@ volatile uint8_t uart_rx; 					// Flag to indicate uart received a byte
 static volatile int rxn; 					// buffer 'element' counter.
 static volatile char rx[UART_BUFFER_SIZE]; 	// buffer of 'char'.
 
+
+
+
+
+
+
+
+/*****************************************************
+ *                  UART PUT CHAR					 *
+ *****************************************************/
 void uart_putchar (char c)
 {
 	cli();
@@ -55,7 +60,9 @@ void uart_putchar (char c)
 }
 
 
-
+/*****************************************************
+ *                  UART GET CHAR					 *
+ *****************************************************/
 char uart_getchar (int index)
 {
 	if (index < UART_BUFFER_SIZE) {
@@ -65,7 +72,9 @@ char uart_getchar (int index)
 }
 
 
-
+/*****************************************************
+ *                  UART PUT STRING					 *
+ *****************************************************/
 void uart_putstr(char *s)
 {
 	while(*s) uart_putchar(*s++);
@@ -73,11 +82,13 @@ void uart_putstr(char *s)
 }
 
 
-
+/*****************************************************
+ *                  UART INIT					 *
+ *****************************************************/
 void uart_init(UART_BPS bitrate)
 {
-	DDRB = 0xff;
-	PORTB = 0xff;
+	//DDRB = 0xff;
+	//PORTB = 0xff;
 
 	rxn = 0;
 	uart_rx = 0;
