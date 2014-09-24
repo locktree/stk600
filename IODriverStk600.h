@@ -2,6 +2,9 @@
 #define STK_IO_DRIVER_H
 
 
+#define IOPORT 			PORTC
+#define PORTDIRECTION 	DDRC
+
 
 
 /*USING THE _BV MACRO  -> Bit Value  */
@@ -25,8 +28,7 @@
 #define BITMASK_CHECK(x,y) ((x) & (y))
 
 
-#define IOPORT 			PORTB
-#define PORTDIRECTION 	DDRB
+
 
 
 typedef enum
@@ -170,18 +172,18 @@ void turnAllIoOff()
 void turnSpecifiedIoOn(PORTNUMBER pn)
 {
 	PORTDIRECTION = 0xFF;			// Set Data Direction of PORTB to output	
-	int number1 = ~IOPORT;			//current value
-	int number2 = pn;				//value to add
-	int number3 = number1 | number2;
+	short number1 = ~IOPORT;			//current value
+	short number2 = pn;				//value to add
+	short number3 = number1 | number2;
 	IOPORT = ~number3;
 }
 
 void turnSpecifiedIoOff(PORTNUMBER pn)
 {
 	PORTDIRECTION = 0xFF;			// Set Data Direction of PORTB to output
-	int number1 = IOPORT;			//current value
-	int number2 = pn;				//value to add
-	int number3 = number1 | number2;
+	short number1 = IOPORT;			//current value
+	short number2 = pn;				//value to add
+	short number3 = number1 | number2;
 	IOPORT = number3;
 }
 
@@ -189,9 +191,8 @@ void turnSpecifiedIoOff(PORTNUMBER pn)
 void toggleSpecifiedIO(PORTNUMBER pn)
 {
 	PORTDIRECTION = 0xFF;
-	int number3 = BIT_FLIP(IOPORT,~pn,pn);
+	short number3 = BIT_FLIP(IOPORT,~pn,pn);
 	IOPORT = number3;
-	
 }
 
 
