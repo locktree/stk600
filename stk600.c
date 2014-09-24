@@ -22,11 +22,7 @@
 
 int main(void)
 {
-	
-	
 	ledDemo();
-	
-
 	return 0;
 }
 
